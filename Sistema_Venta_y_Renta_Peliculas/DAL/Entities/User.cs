@@ -37,5 +37,8 @@ namespace Sistema_Venta_y_Renta_Peliculas.DAL.Entities
 
         [Display(Name = "Bills")]
         public ICollection<Bill>? Bills { get; set; }
+
+        [Display(Name = "payment methods")]
+        public ICollection<PaymentMethod>? paymentMethods { get; set; }
     }
 }

@@ -44,6 +44,8 @@ namespace Sistema_Venta_y_Renta_Peliculas.DAL.Entities
         [Display(Name = "User ID")]
         public Guid UserId { get; set; } //Id del Usuario
 
+        [Display(Name = "Payments")]
+        public ICollection<Payment>? Payments { get; set; }
 
     }
 }

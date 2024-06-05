@@ -41,5 +41,8 @@ namespace Sistema_Venta_y_Renta_Peliculas.DAL.Entities
         [MaxLength(10, ErrorMessage = "The field {0}  must have a maximum of {1} characters")]
         [EnumDataType(typeof(ServiceTypes))]
         public string? Service { get; set; } //Tipo de servicio adquirido por la película (Alquiler ó Compra)
+
+        [Display(Name = "Payments")]
+        public ICollection<Payment>? Payments { get; set; }
     }
 }
