@@ -35,6 +35,7 @@ namespace Sistema_Venta_y_Renta_Peliculas.DAL.Entities
         [EnumDataType(typeof(RoleTypes))]
         public string UserRole { get; set;} //Tipo de rol del Usuario
 
-
+        [Display(Name = "Bills")]
+        public ICollection<Bill>? Bills { get; set; }
     }
 }
