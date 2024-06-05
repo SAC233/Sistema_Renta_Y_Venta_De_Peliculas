@@ -3,7 +3,7 @@ using System.Xml.Linq;
 
 namespace Sistema_Venta_y_Renta_Peliculas.DAL.Entities
 {
-    public class Bill
+    public class Bill:AuditBase
     {
         [Display(Name = "Holder Full Name")]
         [MaxLength(30, ErrorMessage = "The field {0} must have a maximum of {1} characters")]
