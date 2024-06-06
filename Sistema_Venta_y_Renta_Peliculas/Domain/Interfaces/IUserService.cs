@@ -1,0 +1,16 @@
+﻿using Microsoft.AspNetCore.Identity;
+using Sistema_Venta_y_Renta_Peliculas.DAL.Entities;
+
+namespace Sistema_Venta_y_Renta_Peliculas.Domain.Interfaces
+{
+    public interface IUserService
+    {
+        Task<User> GetUserByIdAsync(Guid Id);//
+        Task CheckRoleAsync(string roleName);//
+        Task AddUserToRoleAsync(User user, string roleName);//
+        Task<bool> IsUserInRoleAsync(User user, string roleName);//
+        Task<User> AddUserAsync(User user);//
+        Task<User> UpdateUserAsync(User user);//
+        Task<User> DeleteUserAsync(Guid Id);//
+    }
+}
