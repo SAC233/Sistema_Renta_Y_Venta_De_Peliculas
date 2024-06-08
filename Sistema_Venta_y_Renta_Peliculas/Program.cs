@@ -13,12 +13,12 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<DataBaseContext>(o => o.UseSqlServer(builder.Configuration.GetConnectionString
 ("DefaultConnection")));
 
-
 //Contener de dependencias, sin esto genera error
-builder.Services.AddScoped<IMovieService, MovieService>();
-builder.Services.AddScoped<IBillService, BillService>();
-
-
+builder.Services.AddTransient<IMovieService, MovieService>();
+builder.Services.AddTransient<IBillService, BillService>();
+builder.Services.AddTransient<IUserService, UserService>();
+//builder.Services.AddScoped<IBillService, BillService>();
+//builder.Services.AddScoped<IBillService, BillService>();
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -39,5 +39,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseIdentity();
 
 app.Run();

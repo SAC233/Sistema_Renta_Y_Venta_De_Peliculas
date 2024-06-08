@@ -1,5 +1,6 @@
 ﻿using Sistema_Venta_y_Renta_Peliculas.Enums;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 using System.Xml.Linq;
 
 namespace Sistema_Venta_y_Renta_Peliculas.DAL.Entities
@@ -35,9 +36,11 @@ namespace Sistema_Venta_y_Renta_Peliculas.DAL.Entities
         [EnumDataType(typeof(RoleTypes))]
         public string UserRole { get; set;} //Tipo de rol del Usuario
 
+        [JsonIgnore]
         [Display(Name = "Bills")]
         public ICollection<Bill>? Bills { get; set; }
 
+        [JsonIgnore]
         [Display(Name = "payment methods")]
         public ICollection<PaymentMethod>? paymentMethods { get; set; }
     }
