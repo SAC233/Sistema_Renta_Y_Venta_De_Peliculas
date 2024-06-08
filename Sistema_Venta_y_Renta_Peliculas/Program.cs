@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Sistema_Venta_y_Renta_Peliculas.DAL.Entities;
+using Sistema_Venta_y_Renta_Peliculas.Domain.Interfaces;
+using Sistema_Venta_y_Renta_Peliculas.Domain.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,13 +14,20 @@ builder.Services.AddDbContext<DataBaseContext>(o => o.UseSqlServer(builder.Confi
 ("DefaultConnection")));
 
 
+//Contener de dependencias, sin esto genera error
+builder.Services.AddScoped<IMovieService, MovieService>();
+builder.Services.AddScoped<IBillService, BillService>();
+
+
+
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Configure the HTTP request pipeline. 
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

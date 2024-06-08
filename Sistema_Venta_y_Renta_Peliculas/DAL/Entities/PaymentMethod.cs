@@ -12,7 +12,6 @@ namespace Sistema_Venta_y_Renta_Peliculas.DAL.Entities
         public string CardNumber { get; set; } //Número de Tarjeta
 
         [Display(Name = "Expiration Date")]
-        [MaxLength(20, ErrorMessage = "The field {0} must have a maximum of {1} characters")]
         [Required(ErrorMessage = "Field {0} must be required")]
         public DateTime ExpirationDate { get; set; } //Fecha de Vencimiento
 

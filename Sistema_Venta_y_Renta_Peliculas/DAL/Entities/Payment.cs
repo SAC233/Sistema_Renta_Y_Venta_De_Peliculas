@@ -11,7 +11,6 @@ namespace Sistema_Venta_y_Renta_Peliculas.DAL.Entities
         public string PaymentType { get; set; } //Tipo de pago
 
         [Display(Name = "Time Limit")]
-        [MaxLength(30, ErrorMessage = "The field {0} must have a maximum of {1} characters")]
         [Required(ErrorMessage = "Field {0} must be required")]
         public DateTime Term { get; set; } //Plazo de la película
 

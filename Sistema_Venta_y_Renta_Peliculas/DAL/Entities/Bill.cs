@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 using System.Xml.Linq;
 
 namespace Sistema_Venta_y_Renta_Peliculas.DAL.Entities
@@ -20,10 +21,9 @@ namespace Sistema_Venta_y_Renta_Peliculas.DAL.Entities
         [Required(ErrorMessage = "Field {0} must be required")]
         public string Product { get; set; } //Nombre del Producto
 
-        [Display(Name = "Bill Date")]
-        [MaxLength(30, ErrorMessage = "The field {0} must have a maximum of {1} characters")]
-        [Required(ErrorMessage = "Field {0} must be required")]
-        public DateTime Date { get; set; } //Fecha de la fáctura
+        //[Display(Name = "Bill Date")]
+        //[Required(ErrorMessage = "Field {0} must be required")]
+        //public DateTime Date { get; set; } //Fecha de la fáctura
 
         [Display(Name = "Service Type")]
         [MaxLength(20, ErrorMessage = "The field {0} must have a maximum of {1} characters")]
@@ -43,20 +43,26 @@ namespace Sistema_Venta_y_Renta_Peliculas.DAL.Entities
         [Required(ErrorMessage = "Field {0} must be required")]
         public string paymentMethod { get; set; } //Método de pago usado
 
+
+
         //Así es como se relaciona a la tabla User con EF Core:
+        [JsonIgnore]
         [Display(Name = "USER")]
         public User? User { get; set; }
 
         //FK User
+        //[JsonIgnore]
         [Display(Name = "USER ID")]
         public Guid userID { get; set; }
 
 
         //Así es como se relaciona a la tabla Pay con EF Core:
+        [JsonIgnore]
         [Display(Name = "Payment")]
         public Payment? Payment { get; set; }
 
         //FK User
+        //[JsonIgnore]
         [Display(Name = "Payment Id")]
         public Guid PaymentID { get; set; }
     }

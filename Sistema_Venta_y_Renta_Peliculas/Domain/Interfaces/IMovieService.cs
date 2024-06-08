@@ -3,6 +3,7 @@
 namespace Sistema_Venta_y_Renta_Peliculas.Domain.Interfaces
 {
     public interface IMovieService
+
     {
         Task<IEnumerable<Movie>> GetMoviesAsync();
         Task<Movie> GetMovieByIdAsync(Guid id);
