@@ -1,5 +1,6 @@
 ﻿using Sistema_Venta_y_Renta_Peliculas.Enums;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Sistema_Venta_y_Renta_Peliculas.DAL.Entities
 {
@@ -30,19 +31,19 @@ namespace Sistema_Venta_y_Renta_Peliculas.DAL.Entities
         public string MovieDuration { get; set; } //Duración de la película
 
         [Display(Name = "Purchase Cost")]
-        [MaxLength(50, ErrorMessage = "The field {0} must have a maximum of {1} characters")]
         public float? PurchaseCost { get; set; } //Costo de compra
 
         [Display(Name = "Rental Cost")]
-        [MaxLength(50, ErrorMessage = "The field {0} must have a maximum of {1} characters")]
         public float? RentalCost { get; set; } //Costo de Renta
 
         [Display(Name = "Type of Service", Description = "Indicates whether the movie is rented or purchased")]
         [MaxLength(10, ErrorMessage = "The field {0}  must have a maximum of {1} characters")]
-        [EnumDataType(typeof(ServiceTypes))]
         public string? Service { get; set; } //Tipo de servicio adquirido por la película (Alquiler ó Compra)
 
+        [JsonIgnore]
         [Display(Name = "Payments")]
         public ICollection<Payment>? Payments { get; set; }
+        
+
     }
 }

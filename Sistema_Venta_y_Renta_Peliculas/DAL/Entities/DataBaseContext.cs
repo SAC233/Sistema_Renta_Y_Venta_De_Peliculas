@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Diagnostics.Metrics;
+using System.Threading.Tasks;
 
 namespace Sistema_Venta_y_Renta_Peliculas.DAL.Entities
 {
@@ -58,8 +59,6 @@ namespace Sistema_Venta_y_Renta_Peliculas.DAL.Entities
         public DbSet<Bill> Bills { get; set; }
 
         #endregion
-
-
 
     }
 }
