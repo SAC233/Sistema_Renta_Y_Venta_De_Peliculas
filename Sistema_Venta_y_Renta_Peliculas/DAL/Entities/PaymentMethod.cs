@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.Metrics;
+using System.Text.Json.Serialization;
 using System.Xml.Linq;
 
 namespace Sistema_Venta_y_Renta_Peliculas.DAL.Entities
@@ -36,6 +37,7 @@ namespace Sistema_Venta_y_Renta_Peliculas.DAL.Entities
         public string PostalCode { get; set; } //Código Postal
 
         //Así es como se relaciona 2 tablas con EF Core:
+        [JsonIgnore]
         [Display(Name = "User")]
         public User? User { get; set; }
 
@@ -43,6 +45,7 @@ namespace Sistema_Venta_y_Renta_Peliculas.DAL.Entities
         [Display(Name = "User ID")]
         public Guid UserId { get; set; } //Id del Usuario
 
+        [JsonIgnore]
         [Display(Name = "Payments")]
         public ICollection<Payment>? Payments { get; set; }
 

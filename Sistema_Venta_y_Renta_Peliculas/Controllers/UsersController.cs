@@ -5,30 +5,43 @@ using Sistema_Venta_y_Renta_Peliculas.Domain.Services;
 
 namespace Sistema_Venta_y_Renta_Peliculas.Controllers
 {
-    [Route("api/[controller]")] //Esta es el nombre inicial de mi RUTA, URL o PATH
-    [ApiController]//por que no es un controlador de tipo API
+    [Route("api/[controller]")] //Listo pero necesito poner en role o Customer o Admin 
+    [ApiController]
     public class UsersController : Controller
     {
 
-        private readonly IUserService _userService; //me conecto a la interfaz, pero nunca al servicio, por temas de seguridad no se puede acceder directamente
-        public UsersController(IUserService userService) //Este constructor se parametriza o sobrecarga con la dependendicia que se esta inyectando, parta poder y utilizar los metodos que hay alli
+        private readonly IUserService _userService;
+        
+        public UsersController(IUserService userService) 
         {
             _userService = userService;
         }
 
- 
+        [HttpGet, ActionName("Get")]
+        [Route("GetAll")]
+        public async Task<ActionResult<IEnumerable<User>>> GetUsersAsync()
+        {
+            var user = await _userService.GetUsersAsync(); 
+
+            if (user == null || !user.Any())
+            {
+                return NotFound();
+            }
+            return Ok(user); 
+        }
+
         //GET POR ID
-        [HttpGet, ActionName("Get")] //ActionName: Datanotation del nombre con el que quiero complementar para la ruta
-        [Route("GetById/{id}")] //URL: api/.....,Datanotation
+        [HttpGet, ActionName("Get")] 
+        [Route("GetById/{id}")] 
         public async Task<ActionResult<User>> GetUserByIdAsync(Guid id)
         {
-            var user = await _userService.GetUserByIdAsync(id); //Esta llamando el metodo GetMovieByIdAsync y se guarda en la variable movies
+            var user = await _userService.GetUserByIdAsync(id); 
 
-            if (user == null) //Aqui el any no funciona por que es para listas, colecciones y arreglos, y en este caso es solo 1 elemento el que me trae
+            if (user == null)
             {
-                return NotFound();//Estatus Code "NotFound": 404, Que retorne un 404 si es nulo o si esta vacio con el Any negado, Any: para ver si al menos hay 1 elemento
+                return NotFound();
             }
-            return Ok(user); //Estatus Code "Ok": 200, En caso de que si tenga peliculas me retorna un 200 y la pelicula
+            return Ok(user); 
         }
 
 
@@ -80,47 +93,12 @@ namespace Sistema_Venta_y_Renta_Peliculas.Controllers
         public async Task<ActionResult<User>> DeleteUserAsync(Guid Id)
         {
 
-            if (Id == Guid.Empty) return BadRequest();//No entendi este
+            if (Id == Guid.Empty) return BadRequest();
 
             var deletedUser = await _userService.DeleteUserAsync(Id);
             if (deletedUser == null) return NotFound();
             return Ok(deletedUser);
 
-        }
-
-        //CheckRole
-        [HttpGet, ActionName("CheckRole")]
-        [Route("CheckRole/{roleName}")]
-        public async Task<ActionResult> CheckRoleAsync(string roleName)
-        {
-            if (string.IsNullOrWhiteSpace(roleName)) return BadRequest();
-
-            await _userService.CheckRoleAsync(roleName);
-            return Ok();
-        }
-
-
-        //Si necesito pedir datos esto es lo que debo hacer
-        //AddUserToRole
-        [HttpPost, ActionName("AddUserToRole")]
-        [Route("AddUserToRole/{roleName}")]
-        public async Task<ActionResult> AddUserToRoleAsync([FromBody] User user, string roleName)
-        {
-            if (string.IsNullOrWhiteSpace(roleName)) return BadRequest();//No entendi este
-
-            await _userService.AddUserToRoleAsync(user, roleName);
-            return Ok();
-        }
-
-        //IsUserInRole
-        [HttpPost, ActionName("IsUserInRole")]
-        [Route("IsUserInRole/{roleName}")]
-        public async Task<ActionResult> IsUserInRoleAsync([FromBody] User user, string roleName)
-        {
-            if (string.IsNullOrWhiteSpace(roleName)) return BadRequest();//No entendi este
-
-            bool response = await _userService.IsUserInRoleAsync(user, roleName);
-            return Ok(response);
         }
     }
 }

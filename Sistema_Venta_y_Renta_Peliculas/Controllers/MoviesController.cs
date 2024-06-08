@@ -4,23 +4,20 @@ using Sistema_Venta_y_Renta_Peliculas.Domain.Interfaces;
 
 namespace Sistema_Venta_y_Renta_Peliculas.Controllers
 {
-    [Route("api/[controller]")] //Esta es el nombre inicial de mi RUTA, URL o PATH
-    [ApiController]//por que no es un controlador de tipo API
-    public class MoviesController : Controller //Herencia para poder heredar todos los metodos y rutas y todas las aciones para crear un controlador
+    [Route("api/[controller]")]
+    [ApiController]
+    public class MoviesController : Controller
     {
 
-        private readonly IMovieService _movieService; //me conecto a la interfaz, pero nunca al servicio, por temas de seguridad no se puede acceder directamente
+        private readonly IMovieService _movieService;
 
-        public MoviesController(IMovieService movieService) //Este constructor se parametriza o sobrecarga con la dependendicia que se esta inyectando, parta poder y utilizar los metodos que hay alli
+        public MoviesController(IMovieService movieService)
         {
             _movieService = movieService;
         }
 
-        [HttpGet, ActionName("Get")] //ActionName: Datanotation del nombre con el que quiero complementar para la ruta
-        [Route("GetAll")] //Datanotation
-
-        //GET
-        //ActionResult por que se esta trabajando con Endpoins
+        [HttpGet, ActionName("Get")]
+        [Route("GetAll")]
         public async Task<ActionResult<IEnumerable<Movie>>> GetMoviesAsync()
         {
             var movies = await _movieService.GetMoviesAsync(); //Esta llamando el metodo GetMoviesAsync y se guarda en la variable movies
@@ -33,9 +30,8 @@ namespace Sistema_Venta_y_Renta_Peliculas.Controllers
         }
 
 
-        //GET POR ID
-        [HttpGet, ActionName("Get")] //ActionName: Datanotation del nombre con el que quiero complementar para la ruta
-        [Route("GetById/{id}")] //URL: api/.....,Datanotation
+        [HttpGet, ActionName("Get")]
+        [Route("GetById/{id}")]
         public async Task<ActionResult<Movie>> GetMoviesByIdAsync(Guid id)
         {
             var movie = await _movieService.GetMovieByIdAsync(id); //Esta llamando el metodo GetMovieByIdAsync y se guarda en la variable movies
@@ -54,7 +50,7 @@ namespace Sistema_Venta_y_Renta_Peliculas.Controllers
         public async Task<ActionResult<Movie>> CreateMovieAsync(Movie movie)
         {
             try
-            {       
+            {
                 var newMovie = await _movieService.CreateMovieAsync(movie);
                 if (newMovie == null) return NotFound();//Validamos tambien que no sea nuleable
                 return Ok(newMovie);
@@ -77,7 +73,7 @@ namespace Sistema_Venta_y_Renta_Peliculas.Controllers
             try
             {
                 var editedMovie = await _movieService.EditMovieAsync(movie);
-                if (editedMovie == null) return NotFound(); 
+                if (editedMovie == null) return NotFound();
                 return Ok(editedMovie);
             }
             catch (Exception ex)
@@ -94,17 +90,14 @@ namespace Sistema_Venta_y_Renta_Peliculas.Controllers
         [HttpDelete, ActionName("Delete")]
         [Route("Delete")]
         public async Task<ActionResult<Movie>> DeleteMovieAsync(Guid id)
-        {    
-                
-            if(id == null) return BadRequest();//No entendi este
+        {
+
+            if (id == null) return BadRequest();
 
             var deletedMovie = await _movieService.DeleteMovieAsync(id);
             if (deletedMovie == null) return NotFound();
-            return Ok(deletedMovie);    
-            
+            return Ok(deletedMovie);
+
         }
-
-
-
     }
 }

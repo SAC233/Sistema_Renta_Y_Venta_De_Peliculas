@@ -14,6 +14,21 @@ namespace Sistema_Venta_y_Renta_Peliculas.Domain.Services
             _context = context;
         }
 
+        public async Task<IEnumerable<User>> GetUsersAsync()
+        {
+            try
+            {
+                var user = await _context.Users.ToListAsync();
+
+                return user;
+            }
+            catch (DbUpdateException dbUpdateException)
+            {
+                throw new Exception(dbUpdateException.InnerException?.Message ?? dbUpdateException.Message);
+            }
+
+        }
+
         public async Task<User> GetUserByIdAsync(Guid Id)
         {
             try

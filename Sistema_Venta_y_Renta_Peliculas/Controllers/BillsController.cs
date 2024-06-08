@@ -1,24 +1,24 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Sistema_Venta_y_Renta_Peliculas.DAL.Entities;
-using Sistema_Venta_y_Renta_Peliculas.Domain.Interfaces;  
+using Sistema_Venta_y_Renta_Peliculas.Domain.Interfaces;
 
 namespace Sistema_Venta_y_Renta_Peliculas.Controllers
 {
-    [Route("api/[controller]")] //Esta es el nombre inicial de mi RUTA, URL o PATH
-    [ApiController]//por que no es un controlador de tipo API
+    [Route("api/[controller]")]//Listo pero se debe crear un usuario antes y un pago
+    [ApiController]
     public class BillsController : Controller
     {
-        private readonly IBillService _billService; //me conecto a la interfaz, pero nunca al servicio, por temas de seguridad no se puede acceder directamente
+        private readonly IBillService _billService;
 
-        public BillsController(IBillService billService) //Este constructor se parametriza o sobrecarga con la dependendicia que se esta inyectando, parta poder y utilizar los metodos que hay alli
+        public BillsController(IBillService billService)
         {
             _billService = billService;
         }
 
 
         //GET
-        [HttpGet, ActionName("Get")] //ActionName: Datanotation del nombre con el que quiero complementar para la ruta
-        [Route("GetAll")] //Datanotation
+        [HttpGet, ActionName("Get")]
+        [Route("GetAll")]
         public async Task<ActionResult<IEnumerable<Bill>>> GetBillAsync()
         {
             var bills = await _billService.GetBillAsync(); //Esta llamando el metodo GetBillAsync y se guarda en la variable bills
@@ -32,8 +32,8 @@ namespace Sistema_Venta_y_Renta_Peliculas.Controllers
 
 
         //GET por ID
-        [HttpGet, ActionName("Get")] //ActionName: Datanotation del nombre con el que quiero complementar para la ruta
-        [Route("GetById/{id}")] //URL: api/.....,Datanotation
+        [HttpGet, ActionName("Get")]
+        [Route("GetById/{id}")]
         public async Task<ActionResult<Bill>> GetBillByIdAsync(Guid id)
         {
             var bills = await _billService.GetBillByIdAsync(id); //Esta llamando el metodo GetBillByIdAsync y se guarda en la variable movies

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 using System.Xml.Linq;
 
 namespace Sistema_Venta_y_Renta_Peliculas.DAL.Entities
@@ -15,6 +16,7 @@ namespace Sistema_Venta_y_Renta_Peliculas.DAL.Entities
         public DateTime Term { get; set; } //Plazo de la película
 
         //Así es como se relaciona a la tabla Movie con EF Core:
+        [JsonIgnore]
         [Display(Name = "Movie")]
         public Movie? Movie { get; set; }
 
@@ -23,6 +25,7 @@ namespace Sistema_Venta_y_Renta_Peliculas.DAL.Entities
         public Guid MovieId { get; set; }
 
         //Así es como se relaciona a la tabla PaymentMethod con EF Core:
+        [JsonIgnore]
         [Display(Name = "Payment Method")]
         public PaymentMethod? PaymentMethod { get; set; } 
 

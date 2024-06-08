@@ -5,7 +5,7 @@ using Sistema_Venta_y_Renta_Peliculas.Domain.Services;
 
 namespace Sistema_Venta_y_Renta_Peliculas.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]")]//Listo pero se necesita crear un usuario primero
     [ApiController]
     public class PayMethodController : Controller
     {
@@ -20,22 +20,22 @@ namespace Sistema_Venta_y_Renta_Peliculas.Controllers
         [Route("GetAll")]
         public async Task<ActionResult<IEnumerable<PaymentMethod>>> GetPayMenthodAsync()
         {
-            var payMethod = await _payMethodService.GetPayMenthodAsync(); 
+            var payMethod = await _payMethodService.GetPayMenthodAsync();
 
             if (payMethod == null || !payMethod.Any())
             {
                 return NotFound();
             }
-            return Ok(payMethod); 
+            return Ok(payMethod);
         }
 
         [HttpGet, ActionName("Get")]
         [Route("GetById/{id}")]
         public async Task<ActionResult<PaymentMethod>> GetPayMethodByIdAsync(Guid id)
         {
-            var payMethod = await _payMethodService.GetPayMethodByIdAsync(id); 
+            var payMethod = await _payMethodService.GetPayMethodByIdAsync(id);
 
-            if (payMethod == null) 
+            if (payMethod == null)
             {
                 return NotFound();
             }
@@ -46,11 +46,11 @@ namespace Sistema_Venta_y_Renta_Peliculas.Controllers
         [Route("Create")]
         public async Task<ActionResult<PaymentMethod>> CreatePayMethodAsync(PaymentMethod payMeth)
         {
-                var newPayMeth = await _payMethodService.CreatePayMethodAsync(payMeth);
+            var newPayMeth = await _payMethodService.CreatePayMethodAsync(payMeth);
 
-                if (newPayMeth == null) return NotFound();
+            if (newPayMeth == null) return NotFound();
 
-                return Ok(newPayMeth);           
+            return Ok(newPayMeth);
         }
 
         [HttpPut, ActionName("Edit")]
